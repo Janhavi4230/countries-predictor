@@ -8,8 +8,14 @@ label_encoders = joblib.load("label_encoders.pkl")
 feature_names = joblib.load("feature_names.pkl")
 df = pd.read_csv("Countries.csv")
 
-st.set_page_config(page_title="Countries Life Expectancy Predictor")
+# Page Configuration
+st.set_page_config(
+    page_title="Countries Life Expectancy Predictor",
+    page_icon="🌍",
+    layout="centered"
+)
 
+# Title
 st.title("🌍 Countries Life Expectancy Predictor")
 st.write("Enter country details to predict Life Expectancy.")
 
@@ -18,11 +24,16 @@ input_data = {}
 
 for col in feature_names:
 
+    # st.selectbox()
     if col in label_encoders:
         options = list(label_encoders[col].classes_)
-        value = st.selectbox(col.replace("_", " ").title(), options)
+        value = st.selectbox(
+            col.replace("_", " ").title(),
+            options
+        )
         input_data[col] = label_encoders[col].transform([value])[0]
 
+    # st.number_input()
     else:
         value = st.number_input(
             col.replace("_", " ").title(),
@@ -30,11 +41,16 @@ for col in feature_names:
         )
         input_data[col] = value
 
-# Prediction
-if st.button("Predict Life Expectancy"):
+# st.button()
+if st.button("🚀 Predict Life Expectancy"):
 
     input_df = pd.DataFrame([input_data])
 
     prediction = model.predict(input_df)
 
-    st.success(f"Predicted Life Expectancy : {prediction[0]:.2f} Years")
+    # Prediction Successfully
+    st.success(
+        f"🌍 Predicted Life Expectancy : {prediction[0]:.2f} Years"
+    )
+
+    st.balloons()

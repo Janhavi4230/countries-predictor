@@ -1,28 +1,4 @@
-import pandas as pd
-import numpy as np
-import joblib
-
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import mean_absolute_error, r2_score
-df = pd.read_csv("Countries.csv")
-
-print(df.head())
-
-print(df.info())
-print(df.isnull().sum())
-
-df = df.dropna()
-
-print(df.shape)
-label_encoders = {}
-
-for col in df.select_dtypes(include="object").columns:
-    le = LabelEncoder()
-    df[col] = le.fit_transform(df[col].astype(str))
-    label_encoders[col] = le
-    # Target and Features
+# Target and Features
 X = df.drop("life_expectancy", axis=1)
 y = df["life_expectancy"]
 
